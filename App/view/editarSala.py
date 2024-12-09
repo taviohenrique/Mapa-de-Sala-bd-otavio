@@ -3,7 +3,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import pyqtSlot
 from App.controller.sala import atualizarSala, listarSala, buscarSalaId
 
-
+ID_SALA = 0
 class EditarSala(QWidget):
     def __init__(self):
         super().__init__()
@@ -17,7 +17,9 @@ class EditarSala(QWidget):
     def on_btnEditarSala_clicked(self):
         idSala = self.getIdSala()
         info = self.getDadosSala()
-        if atualizarSala(info[0], info[1], info[2], info[3], info[4], info[5], idSala):
+        print('infos', info[0], info[1], info[2], info[3], info[4], info[5], idSala)
+        if atualizarSala(info[0], info[1], info[2], info[3], info[4], info[5], ID_SALA):
+            print('atualizar',atualizarSala(info[0], info[1], info[2], info[3], info[4], info[5], idSala))
             print('deu bom')
         
     def comboxSala(self):
@@ -26,6 +28,7 @@ class EditarSala(QWidget):
         
     def getIdSala(self):
         salaSelecionada = self.nomeSala.currentText()
+        print('id', self.dicionarioDeSala.get(salaSelecionada))
         return self.dicionarioDeSala.get(salaSelecionada)
  
     def popularSala(self):
@@ -38,6 +41,7 @@ class EditarSala(QWidget):
         capacidade = info["capacidade"]
         obs = info["observacao"]
         if (nomeSala, tipoSala, predio, equipamentos, capacidade, obs):
+            print('popular',nomeSala, tipoSala, predio, equipamentos, capacidade, obs)
             self.tipoSala.setCurrentText(tipoSala)
             self.nomePredio.setCurrentText(predio)
             self.tipoEquipamento.setText(equipamentos)
@@ -52,4 +56,10 @@ class EditarSala(QWidget):
         capacidade = self.mediaCapacidade.text().strip()
         obs = self.feedbackText.text().strip()
         
+        print('get',nomeSala, tipoSala, predio, equipamentos, capacidade, obs)
         return(nomeSala, tipoSala, predio, equipamentos, capacidade, obs)
+    
+    def setIdSala(self, id):
+        global ID_SALA
+        ID_SALA = id
+        
