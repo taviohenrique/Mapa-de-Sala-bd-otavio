@@ -164,6 +164,17 @@ class Reserva:
         log.error(f"{__name__}: Reserva não foi atualizada.")
         return False
  
+    @classmethod
+    def teste(cls, hrInicio, dia, idCurso):
+        cls.__banco.conectar()
+        query = "SELECT * FROM reserva WHERE hrInicio = %s AND dia = %s AND idCurso = %s;"
+        parametro = [hrInicio, dia, idCurso]
+        resultado = cls.__banco.buscarTodos(query, parametro)
+        cls.__banco.desconectar()
+        if resultado:
+            print(resultado)
+            return True
+        return False
     
     @classmethod
     def trocar_sala(cls, idLogin, idSala, dia, hrInicio, hrFim):
