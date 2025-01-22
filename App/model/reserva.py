@@ -1,5 +1,6 @@
 
 from App.model.conexao import ConexaoBD
+from App.model.curso import Curso
 from App.controller.logger import Log
 
 log = Log('model')
@@ -151,6 +152,27 @@ class Reserva:
         log.info(f"{__name__}: Reserva não foi deletada.")
         return False
     
+    @classmethod
+    def retorna_reservas_curso(cls, idCurso):
+        cls.__banco.conectar()
+        query = 'SELECT * FROM reserva WHERE idCurso = %s'
+        resultado = cls.__banco.buscarTodos(query, [idCurso,])
+        cls.__banco.desconectar()
+        if resultado:
+           return resultado
+        return False
+    
+    @classmethod
+    def retorna_reserva_by_periodo(cls, oferta, diaInicio, diaFim):
+        idCurso = Curso.retorna_id_oferta(oferta)
+        resultado = None
+        if idCurso:
+            cls.__banco.conectar()
+            query = 'SELECT * FROM reserva WHERE dia >= %s and dia <= %s and idCurso = %s'
+            params = [diaInicio, diaFim, idCurso]
+            resultado = cls.__banco.buscarTodos(query, params)
+            cls.__banco.desconectar()
+        return resultado
     
     @classmethod
     def atualizar(cls, idLogin, idPessoa, idCurso, idSala, dia, hrInicio, hrFim, chaveDevolvida, observacao, idReserva):
@@ -191,3 +213,4 @@ class Reserva:
 
 if __name__ == "__main__":
     pass
+    

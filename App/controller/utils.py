@@ -1,4 +1,5 @@
 import re
+from datetime import datetime, timedelta
 
 # =================== criada para controller Pessoa ===================
 
@@ -34,3 +35,16 @@ def modificarDataReserva(data):
 # Validar ação
 def validarAcao():
     print("ok")
+
+
+def listas_intervalo_dias(inico:datetime, fim:datetime, dias_semana:list=[1,1,1,1,1,0,0]):
+    """ Função para retornar listas de dias validos dentro do intervalo"""
+    inico = datetime.strptime(inico, "%d/%m/%Y")
+    fim = datetime.strptime(fim, "%d/%m/%Y")
+    dia_atual = inico
+    lista_dias = []
+    while dia_atual <= fim:
+        if dias_semana[dia_atual.weekday()]:
+            lista_dias.append(dia_atual)
+        dia_atual += timedelta(days=1)
+    return lista_dias

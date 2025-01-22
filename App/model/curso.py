@@ -127,6 +127,18 @@ class Curso:
         if resultado.rowcount:
             return True
         return False
+    
+    @classmethod
+    def retorna_id_oferta(cls, oferta):
+        cls.__banco.conectar()
+        query= 'SELECT idCurso FROM curso WHERE oferta = %s'
+        resultado = cls.__banco.buscar(query, [oferta,])
+        cls.__banco.desconectar()
+        if resultado:
+            return resultado[0]
+        return False
+
+    # def consultar oferta id curso
 
 #  EXEMPLO PESQUISA AREA
 if __name__ == "__main__":
