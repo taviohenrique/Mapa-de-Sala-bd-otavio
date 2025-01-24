@@ -3,7 +3,7 @@ from PyQt5.QtCore import QDate, pyqtSlot
 from PyQt5.uic import loadUi
 from App.model.reserva import Reserva
 from App.controller.pessoa import buscarPessoas
-from App.controller.curso import listarCursos
+from App.controller.curso import listarCurso
 from App.controller.sala import listarSala
 from App.controller.utils import modificarData
 
@@ -30,7 +30,7 @@ class EditarReserva(QWidget):
         self.diaFim.setDisplayFormat('dd/MM/yyyy')
         self.diaFim.setDate(QDate.currentDate()) 
 
-        self.dicionarioCurso = listarCursos()
+        self.dicionarioCurso = listarCurso()
         self.popularCurso()
         # self.cursoReserva.currentIndexChanged.connect(self.popularReserva)
 
@@ -64,7 +64,7 @@ class EditarReserva(QWidget):
         """Pegando o dados na interface e retornando os valores"""
         pessoas = buscarPessoas()
         sala = listarSala()
-        curso = listarCursos() 
+        curso = listarCurso() 
         nomeDocenteResponsavel = self.nomeDocente.currentText().strip()
         idDocente = pessoas[nomeDocenteResponsavel]
         nomeSala = self.salaReserva.currentText().strip()
