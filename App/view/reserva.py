@@ -95,13 +95,14 @@ class ReservaInterface(QWidget):
 
                     # fazendo teste de resposta
                     if True:
+                        # print('idloginget ', idLogin.get('id_login'), 'info ' , info, 'diaslivres ',dias_livres)
                         fazendoReserva(idLogin.get('id_login'), info, dias_livres)
                         return
                     else:
                         print('Não foi possível fazer a reserva, já existe uma reserva nesse horário')
 
-                else:
-                    fazendoReserva(idLogin.get('id_login'), info, diasValidos)
+                else: # quando todos os dias estiverem livres
+                    fazendoReserva(idLogin.get('id_login'), info, list(dias_livres.keys()))
                     print('Reserva feita com sucesso!')
             else:
                 print('ninhum dia disponivel para reserva')
