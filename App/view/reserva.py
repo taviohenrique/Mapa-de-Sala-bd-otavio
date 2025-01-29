@@ -10,7 +10,7 @@ from App.controller.curso import listarCurso, buscarCursoId
 from App.controller.pessoa import buscarPessoas
 from App.controller.sala import listarSala
 from App.controller.utils import modificarData, modificarDataReserva
-from App.controller.reserva import fazendoReserva, validarCadastro, validarDiaSemana, realizar_reserva_no_dia
+from App.controller.reserva import validarCadastro, validarDiaSemana, realizar_reserva_no_dia
 from App.controller.login import pegarUsuarioLogado
 
 
@@ -88,19 +88,12 @@ class ReservaInterface(QWidget):
         diasValidos = (info['seg'], info['ter'], info['qua'], info['qui'], info['sexta'], info['sab'], False)
         if validarDiaSemana(info['diaInicio'], diasValidos):
             dias_livres, dias_ocupados = validarCadastro(info, diasValidos)
-            print('-'*100)
-            print(dias_livres)
-            print('-'*100)
-            print(dias_ocupados)
-            print('-'*100)
             if dias_livres:
                 if dias_ocupados:
                     for dia, reserva in dias_ocupados.items():
                         print(f'{dia} | {reserva[1][2]} - {reserva[1][3]}')
 
-                    # fazendo teste de resposta
                     if True:
-                        # print('idloginget ', idLogin.get('id_login'), 'info ' , info, 'diaslivres ',dias_livres)
                         realizar_reserva_no_dia(idLogin.get('id_login'), info, dias_livres)
                         return
                     else:

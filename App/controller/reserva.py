@@ -3,19 +3,11 @@ from App.model.reserva import Reserva
 from App.controller.utils import modificarDataReserva, listas_intervalo_dias
 from App.model.curso import Curso
 
-####################### jeff
 def realizar_reserva_no_dia(idLogin, dados, lista_de_dias):
     for diaAtual in lista_de_dias:
         Reserva(idLogin, dados['idDocente'], dados['idCurso'], dados['idSala'], diaAtual, dados['inicioCurso'], dados['fimCurso'], 0, dados['observações']).fazer_reserva()
     return True
 
-#################################
-#def realizar reserva intervalo de dias # NOME IDEAL (TALVEZ)
-def fazendoReserva(idLogin, dados, diasValidos):
-    lista_de_dias = listas_intervalo_dias(dados['diaInicio'], dados['diaFim'], diasValidos)
-    realizar_reserva_no_dia(idLogin, dados, lista_de_dias)
-
-#arrumar
 def validarCadastro(dados, diasValidos)->list|None:
     lista_de_dias = listas_intervalo_dias(dados['diaInicio'], dados['diaFim'], diasValidos)
     lista_dias_ocupados = {}
