@@ -10,7 +10,7 @@ from App.controller.curso import listarCurso, buscarCursoId
 from App.controller.pessoa import buscarPessoas
 from App.controller.sala import listarSala
 from App.controller.utils import modificarData, modificarDataReserva
-from App.controller.reserva import fazendoReserva, validarCadastro, validarDiaSemana
+from App.controller.reserva import fazendoReserva, validarCadastro, validarDiaSemana, realizar_reserva_no_dia
 from App.controller.login import pegarUsuarioLogado
 
 
@@ -88,6 +88,11 @@ class ReservaInterface(QWidget):
         diasValidos = (info['seg'], info['ter'], info['qua'], info['qui'], info['sexta'], info['sab'], False)
         if validarDiaSemana(info['diaInicio'], diasValidos):
             dias_livres, dias_ocupados = validarCadastro(info, diasValidos)
+            print('-'*100)
+            print(dias_livres)
+            print('-'*100)
+            print(dias_ocupados)
+            print('-'*100)
             if dias_livres:
                 if dias_ocupados:
                     for dia, reserva in dias_ocupados.items():
@@ -96,13 +101,13 @@ class ReservaInterface(QWidget):
                     # fazendo teste de resposta
                     if True:
                         # print('idloginget ', idLogin.get('id_login'), 'info ' , info, 'diaslivres ',dias_livres)
-                        fazendoReserva(idLogin.get('id_login'), info, dias_livres)
+                        realizar_reserva_no_dia(idLogin.get('id_login'), info, dias_livres)
                         return
                     else:
                         print('Não foi possível fazer a reserva, já existe uma reserva nesse horário')
 
                 else: # quando todos os dias estiverem livres
-                    fazendoReserva(idLogin.get('id_login'), info, list(dias_livres.keys()))
+                    realizar_reserva_no_dia(idLogin.get('id_login'), info, dias_livres)
                     print('Reserva feita com sucesso!')
             else:
                 print('ninhum dia disponivel para reserva')

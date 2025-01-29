@@ -45,6 +45,6 @@ def listas_intervalo_dias(dataInicio:str, dataFim:str, dias_semana:list=[1,1,1,1
     lista_dias = []
     while dia_atual <= diaFim:
         if dias_semana[dia_atual.weekday()]:
-            lista_dias.append(dia_atual)
+            lista_dias.append(dia_atual.strftime("%Y/%m/%d"))
         dia_atual += timedelta(days=1)
     return lista_dias

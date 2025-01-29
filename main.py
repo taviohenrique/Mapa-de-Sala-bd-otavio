@@ -1,7 +1,7 @@
 from App.model.reserva import Reserva
 if __name__ == "__main__":
     # from App.model.curso import Curso
-    # a = Curso.retorna_todas_infos_curso(1)
+    # a = Curso.retorotavio
     # print(a)
     from App import desktop
     #teste2 = Reserva.retorna_reserva_by_periodo(245685, '25/01/22', '25/01/31')
